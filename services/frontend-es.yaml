@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: "frontend-es"
+  name: "frontend-es-pd"
 spec:
   selector:
-    app: "frontend-es"
+    app: "frontend-es-pd"
   ports:
     - protocol: "TCP"
-      port: 2113
-      targetPort: 2113
+      port: 4112
+      targetPort: 4112
   type: LoadBalancer

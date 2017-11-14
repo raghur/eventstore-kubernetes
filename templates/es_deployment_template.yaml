@@ -23,39 +23,40 @@ spec:
                 fieldRef:
                   fieldPath: status.podIP
             - name: EVENTSTORE_INT_TCP_PORT
-              value: "1111"
+              value: "3111"
             - name: EVENTSTORE_EXT_TCP_PORT
-              value: "1112"
+              value: "3112"
             - name: EVENTSTORE_INT_HTTP_PORT
-              value: "2114"
+              value: "4111"
             - name: EVENTSTORE_EXT_HTTP_PORT
-              value: "2113"
+              value: "4112"
             - name: EVENTSTORE_CLUSTER_SIZE
               value: "${nodecount}"
             - name: EVENTSTORE_CLUSTER_DNS
-              value: "es.default.svc.cluster.local"
+              value: "es-pd"
             - name: EVENTSTORE_CLUSTER_GOSSIP_PORT
-              value: "2114"
+              value: "4111"
             - name: EVENTSTORE_GOSSIP_ALLOWED_DIFFERENCE_MS
               value: "600000"
             - name: EVENTSTORE_INT_HTTP_PREFIXES
-              value: "http://*:2114/"
+              value: "http://*:4111/"
             - name: EVENTSTORE_EXT_HTTP_PREFIXES
-              value: "http://*:2113/"
+              value: "http://*:4112/"
             - name: EVENTSTORE_DB
               value: "/usr/data/eventstore/data"
             - name: EVENTSTORE_LOG
               value: "/usr/data/eventstore/log"
           ports:
-            - containerPort: 2113
-            - containerPort: 2114
-            - containerPort: 1111
-            - containerPort: 1112
+            - containerPort: 3111
+            - containerPort: 3112
+            - containerPort: 4111
+            - containerPort: 4112
           volumeMounts:
             - mountPath: "/usr/data/eventstore"
               name: espd
       volumes:
         - name: espd
-          gcePersistentDisk:
-            pdName: esdisk-${nodenumber}
-            fsType: ext4
+          azureFile:
+            secretName: azure-secret
+            shareName: esdisk-${nodenumber}
+            readOnly: false

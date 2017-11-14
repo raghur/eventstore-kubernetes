@@ -1,13 +1,13 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: frontend-es
+  name: frontend-es-pd
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: frontend-es
+        app: frontend-es-pd
         track: stable
     spec:
       containers:
@@ -18,7 +18,7 @@ spec:
               exec:
                 command: ["/usr/sbin/nginx","-s","quit"]
           volumeMounts:
-            - name: "nginx-es-frontend-conf"
+            - name: "nginx-es-pd-frontend-conf"
               mountPath: "/etc/nginx/conf.d"
             #- name: "tls-certs"
             #  mountPath: "/etc/tls"
@@ -26,9 +26,9 @@ spec:
         #- name: "tls-certs"
         #  secret:
         #    secretName: "tls-certs"
-        - name: "nginx-es-frontend-conf"
+        - name: "nginx-es-pd-frontend-conf"
           configMap:
-            name: "nginx-es-frontend-conf"
+            name: "nginx-es-pd-frontend-conf"
             items:
               - key: "frontend.conf"
                 path: "frontend.conf"

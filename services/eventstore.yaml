@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: "es"
+  name: "es-pd"
 spec:
   selector:
     escluster: "es"
   ports:
     - protocol: "TCP"
-      port: 2113
-      targetPort: 2113
+      port: 4112
+      targetPort: 4112
   clusterIP: None
